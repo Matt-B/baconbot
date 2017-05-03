@@ -1,12 +1,15 @@
 import os
 import time
 from slackclient import SlackClient
+from pushbullet import PushBullet
 
 slack_token = os.environ["SLACK_API_TOKEN"]
 slack_channel = os.environ["SLACK_CHANNEL"]
 bot_name = os.environ["BOT_NAME"]
+pushbullet_api_key = os.environ["PUSHBULLET_API_KEY"]
 
 sc = SlackClient(slack_token)
+pb = PushBullet(pushbullet_api_key)
 
 
 def get_bot_id():
@@ -35,6 +38,7 @@ def parse_slack_output(bot_id, slack_rtm_output):
 
 def handle_command(command, channel):
     print(command, channel)
+    pb.push_note(bot_name, channel + ":" + command)
 
 
 if __name__ == "__main__":

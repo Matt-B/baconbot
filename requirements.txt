@@ -1,1 +1,2 @@
 slackclient==1.0.5
+pushbullet.py==0.10.0
