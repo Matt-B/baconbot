@@ -45,7 +45,7 @@ if __name__ == "__main__":
     bot_id = get_bot_id()
     READ_WEBSOCKET_DELAY = 1
     if sc.rtm_connect():
-        print("baconbot connected and running!")
+        print(bot_name + " connected and running!")
         while True:
             command, channel = parse_slack_output(bot_id, sc.rtm_read())
             if command and channel:
