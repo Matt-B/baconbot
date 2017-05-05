@@ -38,7 +38,15 @@ def parse_slack_output(bot_id, slack_rtm_output):
 
 def handle_command(command, channel):
     print(command, channel)
-    pb.push_note(bot_name, channel + ":" + command)
+    if "confirm" in command:
+        pb.push_note(bot_name, channel + ":" + command)
+        response = "Order pushed."
+    elif "order" in command:
+        response = "Here, I would take an order."
+    else:
+        response = "I have no idea what you are asking me."
+
+    sc.api_call("chat.postMessage", channel=channel, text=response, as_user=True)
 
 
 if __name__ == "__main__":
