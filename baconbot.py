@@ -1,5 +1,7 @@
 import os
 import time
+import yaml
+
 from slackclient import SlackClient
 from pushbullet import PushBullet
 
@@ -11,11 +13,7 @@ pushbullet_api_key = os.environ["PUSHBULLET_API_KEY"]
 sc = SlackClient(slack_token)
 pb = PushBullet(pushbullet_api_key)
 
-menu = {1: "Bacon Baguette (Small)",
-        2: "Bacon Baguette (Large)",
-        3: "Bacon and Sausage Baguette (Small)",
-        4: "Bacon and Sausage Baguette (Large)",
-        5: "Breakfast Baguette (Bacon/Egg/Sausage) (Large)"}
+menu = {}
 
 placed_orders = {}
 
@@ -54,6 +52,11 @@ def parse_order(order_command, user):
     return items
 
 
+def load_menu():
+    stream = open('menu.yml', 'r')
+    return yaml.load(stream)
+
+
 def handle_command(command, channel, user):
     if "confirm" in command:
         pb.push_note(bot_name, channel + ":" + command)
@@ -77,6 +80,7 @@ def handle_command(command, channel, user):
 
 
 if __name__ == "__main__":
+    menu = load_menu()
     bot_id = get_bot_id()
     READ_WEBSOCKET_DELAY = 1
     if sc.rtm_connect():
