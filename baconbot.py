@@ -47,7 +47,7 @@ def parse_order(order_command, user):
     items = []
     for item in ordered_items:
         if item <= len(menu):
-            items.append(menu.get(item)['name'])
+            items.append(menu.get(item))
     placed_orders[user] = items
     return items
 
@@ -68,9 +68,12 @@ def handle_command(command, channel, user):
     elif "order" in command:
         order = parse_order(command, user)
         if len(order) > 0:
+            total_price = 0
             response = "<@" + user + "> You have ordered:\n"
             for item in order:
-                response += item + "\n"
+                response += item['name'] + "\n"
+                total_price = total_price + item['price']
+            response += "Total Price: £" + str(total_price)
         else:
             response = "No menu items matched.\nPlease enter your choice(s) separated by a space."
     else:
