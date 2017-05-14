@@ -22,7 +22,13 @@ Once these are set, you should be good to go:
 python baconbot.py
 ```
 
+The menu is defined in a YAML file named `menu.yml`, located in the root of the project. An example is provided.
+
 How to use the bot
 ------------------
 
-Nothing is actually implemented as yet, but when it is I will endeavour to document it here.
+Once the bot is running it'll wait for someone to interact with it. You can use the following commands:
+
+`@baconbot menu` - displays the menu
+
+`@baconbot order 1` - orders item #1 on the menu
